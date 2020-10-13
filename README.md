@@ -1,4 +1,7 @@
 
+The purpose of this repository is to demonstrate the steps involved in moving the OpenShift Operator Hub catalog source and Operator images to an Azure container registry.  This would be useful for example in a disconnected ARO environment.
+
+
 ## Azure container registry setup and login
 
 Create a container registry in Azure.
