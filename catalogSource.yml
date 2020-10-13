@@ -1,0 +1,10 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: my-operator-catalog
+  namespace: openshift-marketplace
+spec:
+  sourceType: grpc
+  image: operators.azurecr.io/redhat-operators:v1 
+  displayName: My Operator Catalog
+  publisher: grpc
