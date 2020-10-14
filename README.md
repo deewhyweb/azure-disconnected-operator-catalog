@@ -209,7 +209,7 @@ oc adm catalog mirror \
     operators.azurecr.io/community-operators:v1 \
     operators.azurecr.io \
     --filter-by-os="linux/amd64" \
-    --manifests-only="true" \
+    --manifests-only="false" \
     -a /run/containers/0/auth.json
 ```
 
