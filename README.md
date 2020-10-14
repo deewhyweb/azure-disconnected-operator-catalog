@@ -52,6 +52,20 @@ Use this information to login using podman, e.g.
 
 Enter the username and password copied from the previous step.
 
+We also need to create secret for use when pulling images, to do edit the command  below with your acr server, username, and password.
+
+```
+oc create secret docker-registry azure-acr \
+    --namespace openshift-marketplace \
+    --docker-server=operators.azurecr.io \
+    --docker-username=operators \
+    --docker-password=xxxxxxxxx
+```
+
+The default service account in the openshift-marketplace namespace needs to be updated to use this secret, to do this, patch the default sa with the following command:
+
+`oc patch sa default -n openshift-marketplace --type='json' -p='[{"op":"add","path":"/imagePullSecrets/-", "value":{"name":"azure-acr"}}]'`
+
 ## Red Hat registry login
 
 Login to registry.redhat.io with podman:
@@ -173,3 +187,22 @@ Check the Operator Hub again, you should now see it populated with operator cata
 ![operatorHub2](./assets/operatorHub2.png)
 
 It should now be possible to deploy and use these operators using images from the Azure container registry mirror.
+
+## additional catalogs
+
+To add additional catalogs, e.g. community-operators, run the following:
+
+```
+oc adm catalog build \
+    --appregistry-org=community-operators  \
+    --from=quay.io/hayesphilip/ose-operator-registry:4.5  \
+    --filter-by-os="linux/amd64"  \
+    --to=operators.azurecr.io/community-operators:v1  \
+    --insecure=true   \
+    -a /run/containers/0/auth.json
+
+```
+
+`oc apply -f ./catalogSource-community.yml`
+
+
