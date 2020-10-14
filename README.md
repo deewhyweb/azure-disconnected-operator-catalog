@@ -188,7 +188,7 @@ Check the Operator Hub again, you should now see it populated with operator cata
 
 It should now be possible to deploy and use these operators using images from the Azure container registry mirror.
 
-## additional catalogs
+## Additional catalogs
 
 To add additional catalogs, e.g. community-operators, run the following:
 
