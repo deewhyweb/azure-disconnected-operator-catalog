@@ -117,7 +117,7 @@ Once we have our catalog build image, we now need to mirror the catalog images. 
 
 ```
 oc adm catalog mirror \
-    quay.io/hayesphilip/redhat-operators:v1 \
+    operators.azurecr.io/redhat-operators:v1 \
     operators.azurecr.io \
     --filter-by-os="linux/amd64" \
     --manifests-only="false" \
@@ -202,6 +202,22 @@ oc adm catalog build \
     -a /run/containers/0/auth.json
 
 ```
+Mirror the images for community-operators:
+
+```
+oc adm catalog mirror \
+    operators.azurecr.io/community-operators:v1 \
+    operators.azurecr.io \
+    --filter-by-os="linux/amd64" \
+    --manifests-only="true" \
+    -a /run/containers/0/auth.json
+```
+
+Update the image locations:
+
+`oc apply -f ./community-operators-manifests/imageContentSourcePolicy.yaml`
+
+Deploy the community-source catalog:
 
 `oc apply -f ./catalogSource-community.yml`
 
